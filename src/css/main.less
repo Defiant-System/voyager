@@ -8,6 +8,8 @@ content {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	border-radius: inherit;
+	background: linear-gradient(180deg, #ff00ff2a, transparent 35%, transparent 65%, #0000ff2a);
 
 	.game-view {
 		position: absolute;
@@ -15,5 +17,13 @@ content {
 		left: 0;
 		right: 0;
 		bottom: 0;
+
+		canvas {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
 	}
 }

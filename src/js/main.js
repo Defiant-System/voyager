@@ -19,6 +19,7 @@
 @import "./classes/event.js"
 
 @import "./modules/variables.js"
+@import "./modules/bg.js"
 @import "./modules/game.js"
 @import "./modules/test.js"
 
@@ -29,6 +30,7 @@ const voyager = {
 		this.content = window.find("content");
 
 		// init objects
+		Bg.init();
 		Game.init();
 
 		// DEV-ONLY-START

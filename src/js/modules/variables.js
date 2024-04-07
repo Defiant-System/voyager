@@ -30,7 +30,7 @@ class Rand {
 }
 
 
-let cvs = window.find(".game-view canvas"),
+let cvs = window.find(".game-view .gl-cvs"),
 	{ width, height } = cvs.parent().offset(),
 	gl = cvs[0].getContext("webgl"),
 	running = true,
@@ -76,3 +76,6 @@ let cvs = window.find(".game-view canvas"),
 		"211130002115|401510004510"
 	),
 	scene = new Scene(hero, factory, map);
+
+// canvas dim
+cvs.attr({ width, height });

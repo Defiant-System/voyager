@@ -46,7 +46,7 @@ class Shader {
 			this.location[name] = gl.getUniformLocation(this.program, name);
 		}
 		const location = this.location[name];
-		if (typeof value == 'number') {
+		if (typeof value == "number") {
 			gl.uniform1f(location, value);
 			return this;
 		}
