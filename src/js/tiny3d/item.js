@@ -5,7 +5,6 @@ class Item {
 		this.color = color;
 		this.transform = new Transform(transform);
 
-		this.transform;
 		this.collider;
 		this.childs = [];
 		this.active = true;

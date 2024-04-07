@@ -1,7 +1,6 @@
 
 class Face {
 	constructor(v1, v2, v3) {
-
 		this.verts = [];
 		this.normal;
 		this.normals = [];
@@ -42,8 +41,10 @@ class Face {
 }
 
 
-class Vert {
+class Vert extends Vec3 {
 	constructor() {
+		super();
+
 		this.faces = [];
 	}
 

@@ -2,7 +2,7 @@
 class Collider {
 	constructor(transform, scale) {
 		this.transform = transform;
-		this.scale = scale;
+		this.scale = transform.scale;
 	}
 
 	getTranslate() {
