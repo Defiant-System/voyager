@@ -9,29 +9,118 @@ content {
 	right: 0;
 	bottom: 0;
 	border-radius: inherit;
-	background: linear-gradient(180deg, #ff00ff2a, transparent 30%, transparent 70%, #0000ff2a);
+	background: linear-gradient(180deg, #ff00ff2a, transparent 30%, transparent 60%, #0000ff2f);
 
+	&[data-show="start"] {
+		.game-view,
+		.start-view {
+			opacity: 1;
+			visibility: visible;
+
+			.hud {
+				display: none;
+			}
+		}
+	}
+
+	&[data-show="play"] {
+		.game-view {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	&[data-show="over"] {
+		.over-view {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	.game-bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+
+	.start-view,
+	.over-view,
 	.game-view {
+		opacity: 0;
+		visibility: hidden;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+		padding: 53px 0 0;
+		text-align: center;
 
-		canvas {
+		h2 {
+			font-weight: 400;
+			font-size: 70px;
+			font-family: Righteous, sans-serif;
+			color: #f0ffff99;
+			text-transform: uppercase;
+			text-shadow: 0 0 5px #aaf,
+						0 0 10px #1e90ff,
+						0 0 15px #0000ff;
+		}
+	}
+
+	.over-view {
+		padding-top: 113px;
+
+		h2 {
+			font-size: 61px;
+		}
+	}
+
+	.game-view {
+		.hud {
+			position: absolute;
+			top: 13px;
+			left: 17px;
+			right: 17px;
+			display: flex;
+			font-weight: 400;
+			font-size: 37px;
+			font-family: Righteous, sans-serif;
+			color: #f0ffffaa;
+			text-shadow: 0 0 3px #aaf,
+						0 0 7px #1e90ff,
+						0 0 11px #0000ff;
+
+			.score {
+				width: 50%;
+			}
+
+			.tokens {
+				width: 50%;
+				text-align: right;
+			}
+		}
+
+		canvas.gl-cvs {
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 100%;
 			height: 100%;
-
-			&.game-bg {
-				z-index: 1;
-			}
-
-			&.gl-cvs {
-				z-index: 2;
-			}
 		}
 	}
+}
+
+
+// custom fonts
+@font-face {
+	font-family: "Righteous";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url(~/fonts/Righteous-latin.woff2) format("woff2");
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }

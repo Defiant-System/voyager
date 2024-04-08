@@ -1,6 +1,9 @@
 
 let Game = {
 	init() {
+		// fast references
+		this.content = window.find("content");
+
 		// init GL
 		gl.clearColor(0, 0, 0, 0);
 		gl.enable(gl.CULL_FACE);
@@ -9,7 +12,7 @@ let Game = {
 
 		// camera & set viewport
 		camera.rotate.x = -.45;
-		camera.position.set(0, .65, 3);
+		camera.position.set(0, .15, 4);
 		camera.aspect = width / height;
 
 		// our hero
@@ -24,19 +27,28 @@ let Game = {
 		let that = this;
 		this.fpsControl = karaqu.FpsControl({
 			fps: 30,
-			autoplay: true,
-			callback() {
-				that.update();
-			}
+			// autoplay: true,
+			callback() { that.update(); }
 		});
 	},
 	setState(state) {
+		// save state
+		this.state = state;
+		// update UI
+		this.content.data({ show: state });
+
 		switch (state) {
-			case "new":
+			case "start":
+				this.fpsControl.start();
 				break;
 			case "play":
+				// change camera position
+				camera.position.set(0, .65, 3);
+				
+				this.fpsControl.start();
 				break;
 			case "pause":
+				this.fpsControl.stop();
 				break;
 			case "over":
 				this.fpsControl.stop();
@@ -47,23 +59,24 @@ let Game = {
 		// reset GL view
 		gl.clear(gl.COLOR_BUFFER_BIT);
 
-		let now = Date.now();
-		if (now - this.time > 30) this.scene.update();
-		this.time = now;
+		switch (this.state) {
+			case "start":
+				// update hero
+				hero.mesh = mesh.hero[2];
+				hero.preview();
+				this.render(hero);
+				this.render(hero, .01);
+				break;
+			case "play":
+				let now = Date.now();
+				if (now - this.time > 30) this.scene.update();
+				this.time = now;
 
-		this.scene.update();
-		this.render(this.scene);
-		this.render(this.scene, .01);
-	},
-	update_() {
-		// reset GL view
-		gl.clear(gl.COLOR_BUFFER_BIT);
-
-		// update hero
-		hero.mesh = mesh.hero[2];
-		hero.preview();
-		this.render(hero);
-		this.render(hero, .01);
+				this.scene.update();
+				this.render(this.scene);
+				this.render(this.scene, .01);
+				break;
+		}
 	},
 	render(item, stroke=0) {
 		item.childs.forEach(child => this.render(child, stroke));

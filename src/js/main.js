@@ -10,13 +10,13 @@
 
 @import "./classes/token.js"
 @import "./classes/scene.js"
-@import "./classes/task.js"
-@import "./classes/menu.js"
+// @impor1t "./classes/task.js"
+// @impo1rt "./classes/menu.js"
 @import "./classes/platform.js"
 @import "./classes/hero.js"
 @import "./classes/map.js"
 @import "./classes/enemy.js"
-@import "./classes/event.js"
+// @imp1ort "./classes/event.js"
 
 @import "./modules/variables.js"
 @import "./modules/bg.js"
@@ -32,6 +32,8 @@ const voyager = {
 		// init objects
 		Bg.init();
 		Game.init();
+
+		Game.setState("start");
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -57,7 +59,7 @@ const voyager = {
 						Game.scene.hero.boost();
 						break;
 					case "esc":
-						Game.setState("new");
+						Game.setState("play");
 						break;
 					case "p":
 						if (Game.state === "play") Game.setState("pause");
