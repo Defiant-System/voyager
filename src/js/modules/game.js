@@ -23,6 +23,13 @@ let Game = {
 		this.scene = new Scene(hero, factory, map);
 		this.time = Date.now();
 
+		// temp
+		// let token = new Token(mesh.token, COLOR.YELLOW, [,1,,90,,,.5,.1,.5]);
+		// token.transform.translate.set(0, 1, 0);
+		// token.transform.rotate.y += 180;
+		// this.render(token);
+
+
 		// FPS controller
 		let that = this;
 		this.fpsControl = karaqu.FpsControl({
@@ -44,7 +51,7 @@ let Game = {
 			case "play":
 				// change camera position
 				camera.position.set(0, .65, 3);
-				
+
 				this.fpsControl.start();
 				break;
 			case "pause":
