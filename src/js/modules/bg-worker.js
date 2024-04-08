@@ -83,7 +83,7 @@ let Anim = {
 			if (px >= 0 && px <= Self.width && py >= 0 && py <= Self.height) {
 				let alpha = (1 - stars[len].z / 48),
 					size = Math.max(alpha, 0.1) + 0.45,
-					c = 255 - Math.round(Math.abs(alpha * 37));
+					c = 255 - Math.round(Math.abs(alpha * 2));
 				ctx.beginPath();
 				ctx.fillStyle = `rgba(${c}, ${c}, ${c}, ${alpha})`;
 				ctx.arc(px, py, size, 0, Self.TAU);
