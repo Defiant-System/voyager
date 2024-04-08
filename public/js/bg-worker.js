@@ -1,1 +1,121 @@
-let Anim={init(t){this.paused=false;this.TAU=Math.PI*2},dispatch(t){let e=Anim,a;switch(t.type){case"start":e.cvs=t.canvas;e.ctx=e.cvs.getContext("2d");e.width=e.cvs.width;e.height=e.cvs.height;e.dispatch({type:"create-scene"});break;case"pause":e.paused=true;break;case"resume":if(e.paused&&e.ctx){e.paused=false;e.draw()}break;case"create-scene":e.maxDepth=64;e.stars=[];let a=192;while(a--){e.stars.push({x:Utils.random(-25,25)|0,y:Utils.random(-25,25)|0,z:Utils.random(1,e.maxDepth)|0})}e.draw();break}},update(t){let e=t.width/2,a=t.height/2,s=t.stars,i=s.length;while(i--){s[i].z-=.015;if(s[i].z<=0){s[i].x=Utils.random(-25,25)|0;s[i].y=Utils.random(-25,25)|0;s[i].z=Utils.random(1,t.maxDepth)|0}}},draw(){let t=Anim,e=t.cvs,a=t.ctx,s=t.width>>1,i=t.height>>1,h=t.stars,r=h.length;t.update(t);e.width=t.width;e.height=t.height;while(r--){k=128/h[r].z,px=h[r].x*k+s,py=h[r].y*k+i;if(px>=0&&px<=t.width&&py>=0&&py<=t.height){let e=1-h[r].z/48,s=Math.max(e,.1)+.45,i=255-Math.round(Math.abs(e*2));a.beginPath();a.fillStyle=`rgba(${i}, ${i}, ${i}, ${e})`;a.arc(px,py,s,0,t.TAU);a.fill()}}if(!t.paused)requestAnimationFrame(t.draw)}};Anim.init();self.onmessage=t=>Anim.dispatch(t.data);let Utils={random(t,e){return Math.random()*(e-t)+t},calculateDistance(t,e,a,s){let i=t-a,h=e-s;return Math.sqrt(i**2+h**2)}};
+let Anim = {
+	init(canvas) {
+		// initial values
+		this.paused = false;
+		this.TAU = Math.PI * 2;
+
+		// setTimeout(() => { this.paused = true }, 300);
+	},
+	dispatch(event) {
+		let Self = Anim,
+			value;
+		switch (event.type) {
+			case "start":
+				Self.cvs = event.canvas;
+				Self.ctx = Self.cvs.getContext("2d", { willReadFrequently: true });
+				Self.width = Self.cvs.width;
+				Self.height = Self.cvs.height;
+				Self.focalX = Self.width >> 1;
+				Self.focalY = Self.height * .2;
+				Self.dispatch({ type: "create-scene" });
+				break;
+			case "pause":
+				Self.paused = true;
+				break;
+			case "resume":
+				if (Self.paused && Self.ctx) {
+					Self.paused = false;
+					Self.draw();
+				}
+				break;
+			case "create-scene":
+				Self.maxDepth = 64;
+				Self.stars = [];
+
+				// stars
+				let count = 192;
+				while (count--) {
+					Self.stars.push({
+						x: Utils.random(-25, 25) | 0,
+						y: Utils.random(-25, 25) | 0,
+						z: Utils.random(1, Self.maxDepth) | 0
+					});
+				}
+
+				// start rendering
+				Self.draw();
+				break;
+		}
+	},
+	update(Self) {
+		let halfWidth = Self.width / 2,
+			halfHeight = Self.height / 2,
+			stars = Self.stars,
+			len = stars.length;
+
+		while (len--) {
+			stars[len].z -= 0.015;
+			if (stars[len].z <= 0) {
+				stars[len].x = Utils.random(-25, 25) | 0;
+				stars[len].y = Utils.random(-25, 25) | 0;
+				stars[len].z = Utils.random(1, Self.maxDepth) | 0;
+			}
+		}
+	},
+	draw() {
+		let Self = Anim,
+			cvs = Self.cvs,
+			ctx = Self.ctx,
+			stars = Self.stars,
+			len = stars.length;
+		// update scene
+		Self.update(Self);
+		// fade out "old" pixels
+		let pixels = ctx.getImageData(0, 0, Self.width, Self.height);
+		for(let d=3, dl=pixels.data.length; d<dl; d+=4){
+			pixels.data[d] = Math.floor(pixels.data[d] * .75);
+		}
+		ctx.putImageData(pixels, 0, 0);
+		
+		while (len--) {
+			k  = 64 / stars[len].z,
+			px = stars[len].x * k + Self.focalX,
+			py = stars[len].y * k + Self.focalY;
+
+			if (px >= 0 && px <= Self.width && py >= 0 && py <= Self.height) {
+				let alpha = 1 - stars[len].z / 48,
+					size = Math.max(alpha, 0.1) + 0.3,
+					c = 255 - Math.round(Math.abs(alpha * 64));
+				ctx.beginPath();
+				ctx.fillStyle = `rgba(${c}, ${c}, ${c}, ${alpha})`;
+				ctx.arc(px, py, size, 0, Self.TAU);
+				ctx.fill();
+			}
+		}
+		
+		// next tick
+		if (!Self.paused) requestAnimationFrame(Self.draw);
+	}
+};
+
+// auto call init
+Anim.init();
+
+// forward message / event
+self.onmessage = event => Anim.dispatch(event.data);
+
+
+
+// simple utils
+let Utils = {
+	// get a random number within a range
+	random(min, max) {
+		return Math.random() * ( max - min ) + min;
+	},
+	// calculate the distance between two points
+	calculateDistance(p1x, p1y, p2x, p2y) {
+		let xDistance = p1x - p2x,
+			yDistance = p1y - p2y;
+		return Math.sqrt((xDistance ** 2) + (yDistance ** 2));
+	}
+};

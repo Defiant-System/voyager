@@ -1,7 +1,7 @@
 
 class Map {
 	constructor(config, length=7, steps=150) {
-		this.config = config.split('|');
+		this.config = config.split("|");
 		this.length = length;
 		this.steps = steps;
 	}

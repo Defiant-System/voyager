@@ -8,8 +8,8 @@
 		<meta name="author" value="Hakan Bilgin" namespace="ant"/>
 		<meta name="license" value="AGPL-3.0"/>
 		<meta name="repository" value="https://github.com/Defiant-System/voyager"/>
-		<meta name="width" value="640"/>
-		<meta name="height" value="540"/>
+		<meta name="width" value="520"/>
+		<meta name="height" value="600"/>
 		<meta name="top" value="205"/>
 		<meta name="left" value="270"/>
 		<meta name="minimize"/>

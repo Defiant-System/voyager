@@ -42,6 +42,28 @@ const voyager = {
 			// system events
 			case "window.init":
 				break;
+			case "window.keydown":
+				// console.log(event);
+				switch (event.char) {
+					case "w":
+					case "up":    Game.scene.hero.jump(); break;
+					case "s":
+					case "down":  Game.scene.hero.dash(); break;
+					case "a":
+					case "left":  Game.scene.hero.left(); break;
+					case "d":
+					case "right": Game.scene.hero.right(); break;
+					case "space":
+						Game.scene.hero.boost();
+						break;
+					case "esc":
+						Game.setState("new");
+						break;
+					case "p":
+						if (Game.state === "play") Game.setState("pause");
+						break;
+				}
+				break;
 			// custom events
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

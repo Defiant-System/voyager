@@ -18,7 +18,7 @@ class Event {
 	}
 
 	trigger(event, params) {
-		Event.listener['all'].forEach(listener => {
+		Event.listener["all"].forEach(listener => {
 			listener(event, params);
 		});
 		if (event in Event.listener) {

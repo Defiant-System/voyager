@@ -22,49 +22,48 @@ class Hero extends Item {
 		this.magnetTime = 0;
 		this.explode = 0;
 		this.stroke = 0;
-		if (reset) {
-			this.distance = 0;
-		}
+
+		if (reset) this.distance = 0;
 	}
 	
 	left() {
 		if (this.x >= 0) {
 			this.x--;
-			Event.trigger("move", this);
+			// Event.trigger("move", this);
 		}
 	}
 
 	right() {
 		if (this.x <= 0) {
 			this.x++;
-			Event.trigger("move", this);
+			// Event.trigger("move", this);
 		}
 	}
 
 	jump() {
 		if (this.collide) {
 			this.acc = .03;
-			Event.trigger("jump", this);
+			// Event.trigger("jump", this);
 		}
 	}
 
 	boost() {
 		this.speedTime = 75;
-		Event.trigger("move", this);
+		// Event.trigger("move", this);
 	}
 
 	magnetize() {
 		this.magnetTime = 450;
-		Event.trigger("power", this);
+		// Event.trigger("power", this);
 	}
 
 	dash() {
 		this.scaleTime = 40;
-		Event.trigger("move", this);
+		// Event.trigger("move", this);
 	}
 
 	coin() {
-		Event.trigger("coin", this);
+		// Event.trigger("coin", this);
 	}
 
 	cancel() {

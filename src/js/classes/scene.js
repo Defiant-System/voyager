@@ -5,7 +5,7 @@ class Scene extends Item {
 		this.map = map;
 		this.hero = hero;
 		this.add(this.hero);
-		this.planets = document.getElementsByTagName('LI');
+		// this.planets = document.getElementsByTagName("LI");
 		this.platforms = [];
 		for (let i = 0; i < 33; i++) {
 			let platform = factory();
@@ -30,41 +30,21 @@ class Scene extends Item {
 				platform.block.active = true;
 			}
 		}
-		this.planet = this.planets.length - 1;
-		for (i = 0; i < this.planets.length; i++) {
-			this.planets.item(i).className = '';
-		}
+		// this.planet = this.planets.length - 1;
+		// for (i = 0; i < this.planets.length; i++) {
+		// 	this.planets.item(i).className = "";
+		// }
 	}
 
 	next() {
-		if (this.planet > 0) {
-			this.planets.item(this.planet--).className = 'hide';
-			Event.trigger('planet', this.planet);
-		}
+		// if (this.planet > 0) {
+		// 	this.planets.item(this.planet--).className = "hide";
+		// 	Event.trigger("planet", this.planet);
+		// }
 	}
 
 	ended() {
 		return Math.abs(this.hero.speed.z) < .01;
-	}
-
-	input(key) {
-		const hero = this.hero;
-		switch (key) {
-			case 37:
-				hero.left();
-				break;
-			case 39:
-				hero.right();
-				break;
-			case 38:
-				hero.jump();
-				break;
-			case 40:
-				hero.dash();
-				break;
-			case 32:
-				hero.boost();
-		}
 	}
 
 	updateRow(speed) {
@@ -122,10 +102,10 @@ class Scene extends Item {
 		});
 		hero.distance += speed;
 		if (fence > 0) {
-			Event.trigger('fence', fence);
+			// Event.trigger("fence", fence);
 		}
 		if (enemy > 0) {
-			Event.trigger('enemy', enemy);
+			// Event.trigger("enemy", enemy);
 		}
 	}
 }

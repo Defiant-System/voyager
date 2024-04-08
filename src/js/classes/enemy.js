@@ -9,13 +9,11 @@ class Enemy extends Item {
 	}
 
 	update(speed, end) {
-		if (!this.active) {
-			return;
-		}
+		if (!this.active) return;
+		
 		this.stroke += (this.explode - this.stroke) / 25;
-		if (this.stroke) {
-			return;
-		}
+		if (this.stroke) return;
+		
 		let pos = this.transform.translate,
 			rotate = this.transform.rotate;
 		pos.z = end ? 0 : pos.z + speed / 2;
@@ -27,11 +25,11 @@ class Enemy extends Item {
 		if (this.active && !this.explode && !hero.explode && this.collider.intersect(hero.collider)) {
 			if (hero.speedTime) {
 				this.explode = 7;
-				Event.trigger('hit', hero);
+				// Event.trigger("hit", hero);
 				return;
 			}
 			hero.explode = 7;
-			Event.trigger('exp', hero);
+			// Event.trigger("exp", hero);
 		}
 	}
 }

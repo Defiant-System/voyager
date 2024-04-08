@@ -2,39 +2,36 @@
 const RAD_SCALE = Math.PI / 180;
 
 const COLOR = {
-	WHITE:  [1, 1, 1, 10],
-	PINK: [1, .3, 1, 30],
-	BLUE: [.3, .3, 1, 30],
-	YELLOW: [1, 1, .3, 30],
-	RED: [1, .3, .3, 0],
-	CYAN: [.3, 1, 1, 30]
-};
+		WHITE:  [1, 1, 1, 10],
+		PINK: [1, .3, 1, 30],
+		BLUE: [.3, .3, 1, 30],
+		YELLOW: [1, 1, .3, 30],
+		RED: [1, .3, .3, 0],
+		CYAN: [.3, 1, 1, 30]
+	};
 
 
 const Shaders = {
-	Fragment: { tiny: `@import "../shaders/tiny.frag"` },
-	Vertex: { tiny: `@import "../shaders/tiny.vert"` }
-};
+		Fragment: { tiny: `@import "../shaders/tiny.frag"` },
+		Vertex: { tiny: `@import "../shaders/tiny.vert"` }
+	};
 
 
-class Rand {
-	static seed = Math.random()
-	get(max=1, min=0, round=true) {
-		if (max <= min) {
-			return max;
+const Rand = {
+		seed: Math.random(),
+		get(max=1, min=0, round=true) {
+			if (max <= min) return max;
+			this.seed = (this.seed * 9301 + 49297) % 233280;
+			let value = min + (this.seed / 233280) * (max - min);
+			return round ? Math.round(value) : value;
 		}
-		Rand.seed = (Rand.seed * 9301 + 49297) % 233280;
-		let value = min + (Rand.seed / 233280) * (max - min);
-		return round ? Math.round(value) : value;
-	}
-}
+	};
 
 
 let cvs = window.find(".game-view .gl-cvs"),
 	{ width, height } = cvs.parent().offset(),
 	gl = cvs[0].getContext("webgl"),
-	running = true,
-	time = Date.now(),
+	running = false,
 	light = new Vec3(5, 15, 7),
 	camera = new Camera(width / height),
 	shader = new Shader(gl, Shaders.Vertex.tiny, Shaders.Fragment.tiny),
@@ -50,9 +47,9 @@ let cvs = window.find(".game-view .gl-cvs"),
 		token: new Mesh(gl, 9, [.45, .3, .45, .5, .5, .5, .5, -.5, .45, -.5, .45, -.3], 30),
 		enemy: new Mesh(gl, 6),
 	},
-	hero = new Hero(mesh.hero[0], COLOR.WHITE),
+	hero = new Hero(mesh.hero[0], COLOR.WHITE);
 
-	factory = () => {
+let factory = () => {
 		let platform = new Platform(),
 			block = new Item(mesh.block, COLOR.BLUE, [,,,,45]),
 			enemy = new Enemy(mesh.enemy, COLOR.CYAN, [,1,,,,,.7,.7,.7]),
@@ -74,8 +71,7 @@ let cvs = window.find(".game-view .gl-cvs"),
 		"311119973111|5111111d|311120003115|"+
 		"551111dd|305130053051|3111139b3511|"+
 		"211130002115|401510004510"
-	),
-	scene = new Scene(hero, factory, map);
+	);
 
 // canvas dim
 cvs.attr({ width, height });

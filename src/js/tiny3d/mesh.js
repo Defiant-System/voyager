@@ -26,14 +26,14 @@ class Face {
 	}
 
 	pushVerts(data) {
-		this.verts.forEach((vec) => {
+		this.verts.forEach(vec => {
 			data.push(...vec.toArray());
 		});
 		return this;
 	}
 
 	pushNormals(data) {
-		this.normals.forEach((vec) => {
+		this.normals.forEach(vec => {
 			data.push(...vec.toArray());
 		});
 		return this;
@@ -43,8 +43,7 @@ class Face {
 
 class Vert extends Vec3 {
 	constructor() {
-		super();
-
+		super(...arguments);
 		this.faces = [];
 	}
 
