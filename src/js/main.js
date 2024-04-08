@@ -33,7 +33,7 @@ const voyager = {
 		Bg.init();
 		Game.init();
 
-		Game.setState("start");
+		// Game.setState("start");
 
 		// DEV-ONLY-START
 		Test.init(this);
