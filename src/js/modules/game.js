@@ -83,5 +83,9 @@ let Game = {
 			.uniform("uLight", light.clone().sub(camera.position).toArray())
 			.uniform("uStroke", stroke + item.stroke);
 		gl.drawArrays(gl.TRIANGLES, 0, item.mesh.length);
+
+		if (this.scene.ended()) {
+			this.setState("over");
+		}
 	}
 };
