@@ -33,7 +33,7 @@ const voyager = {
 		Bg.init();
 		Game.init();
 
-		// Game.setState("start");
+		Game.setState("start");
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -48,15 +48,23 @@ const voyager = {
 				// console.log(event);
 				switch (event.char) {
 					case "w":
-					case "up":    Game.scene.hero.jump(); break;
+					case "up":
+						if (Game.state === "play") Game.scene.hero.jump();
+						break;
 					case "s":
-					case "down":  Game.scene.hero.dash(); break;
+					case "down":
+						if (Game.state === "play") Game.scene.hero.dash();
+						break;
 					case "a":
-					case "left":  Game.scene.hero.left(); break;
+					case "left":
+						if (Game.state === "play") Game.scene.hero.left();
+						break;
 					case "d":
-					case "right": Game.scene.hero.right(); break;
+					case "right":
+						if (Game.state === "play") Game.scene.hero.right();
+						break;
 					case "space":
-						Game.scene.hero.boost();
+						if (Game.state === "play") Game.scene.hero.boost();
 						break;
 					case "esc":
 						Game.setState("play");

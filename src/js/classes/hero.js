@@ -25,6 +25,10 @@ class Hero extends Item {
 
 		if (reset) this.distance = 0;
 	}
+
+	set distance(v) {
+		Game.els.hudScore.text(this.distance);
+	}
 	
 	left() {
 		if (this.x >= 0) {

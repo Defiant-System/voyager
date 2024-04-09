@@ -2,7 +2,11 @@
 let Game = {
 	init() {
 		// fast references
-		this.content = window.find("content");
+		this.els = {
+			content: window.find("content"),
+			hudScore: window.find(".hud .score span"),
+			hudTokens: window.find(".hud .tokens span"),
+		};
 
 		// init GL
 		gl.clearColor(0, 0, 0, 0);
@@ -12,7 +16,6 @@ let Game = {
 
 		// camera & set viewport
 		camera.rotate.x = -.45;
-		camera.position.set(0, .15, 4);
 		camera.aspect = width / height;
 
 		// our hero
@@ -42,10 +45,11 @@ let Game = {
 		// save state
 		this.state = state;
 		// update UI
-		this.content.data({ show: state });
+		this.els.content.data({ show: state });
 
 		switch (state) {
 			case "start":
+				camera.position.set(0, -1, 5);
 				this.fpsControl.start();
 				break;
 			case "play":
