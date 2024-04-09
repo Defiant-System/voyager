@@ -18,6 +18,8 @@ let Sfx = {
 		this.gains = {};
 		this.buffers = {};
 		this.bitrate = 44100;
+		// this noise
+		this.noise = this.out.createBuffer(1, this.bitrate * 2, this.bitrate);
 
 		// prepare sound effects
 		await Promise.all([
@@ -28,9 +30,6 @@ let Sfx = {
 			this.sound("coin", new Sound("square", [.2, .1, 0], .2), [1760, 1760], .2),
 			this.sound("move", new Sound("custom", [.1, .5, 0], .3), [1760, 440], .3),
 		]);
-
-		// this noise
-		this.noise = this.out.createBuffer(1, this.bitrate * 2, this.bitrate);
 	},
 	async sound(id, sound, freq, time) {
 		let ctx = new OfflineAudioContext(1, this.bitrate * time, this.bitrate);
@@ -44,7 +43,7 @@ let Sfx = {
 		
 		ctx.addEventListener("complete", e => this.buffers[id] = e.renderedBuffer);
 		
-		if (sound.type == "custom") {
+		if (sound.type === "custom") {
 			let filter = ctx.createBiquadFilter();
 			filter.connect(vol);
 			filter.detune.setValueCurveAtTime(curve, 0, time);
@@ -72,6 +71,7 @@ let Sfx = {
 	},
 	play(id, loop, mixerId="master") {
 		if (id in this.buffers) {
+			// console.log(id, this.buffers[id]);
 			let src = this.out.createBufferSource();
 			src.loop = loop;
 			src.buffer = this.buffers[id];
