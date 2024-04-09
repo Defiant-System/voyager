@@ -132,6 +132,16 @@ const voyager = {
 				Game.reel.go(event.type.split("-")[1]);
 				break;
 			case "toggle-music":
+				if (window.midi.playing) {
+					window.midi.pause();
+				} else {
+					window.midi.play({
+						path: "/cdn/midi/music/Johannes%20Brahms%20-%20Hungarian%20Dance%20No5.mid",
+						reverb: "cathedral",
+						loop: true,
+					});
+				}
+				break;
 			case "toggle-fx":
 				console.log(event);
 				break;

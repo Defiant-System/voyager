@@ -27,8 +27,8 @@ let Game = {
 		this.time = Date.now();
 
 		// temp
-		this.scene.update();
-		this.render(this.scene);
+		// this.scene.update();
+		// this.render(this.scene);
 		
 		// let token = new Token(mesh.token, COLOR.YELLOW, [,1,,90,,,.5,.1,.5]);
 		// token.transform.translate.set(0, 1, 0);
