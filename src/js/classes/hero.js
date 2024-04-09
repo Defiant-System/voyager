@@ -23,13 +23,23 @@ class Hero extends Item {
 		this.explode = 0;
 		this.stroke = 0;
 
-		if (reset) this.distance = 0;
+		this._coins = 0;
+		Game.els.hudTokens.text(this._coins);
+
+		if (reset) {
+			this._distance = 0;
+		}
 	}
 
 	set distance(v) {
-		Game.els.hudScore.text(this.distance);
+		this._distance = v;
+		Game.els.hudScore.text(this._distance | 1);
 	}
-	
+
+	get distance() {
+		return this._distance || 0;
+	}
+
 	left() {
 		if (this.x >= 0) {
 			this.x--;
@@ -68,6 +78,8 @@ class Hero extends Item {
 
 	coin() {
 		// Event.trigger("coin", this);
+		this._coins++;
+		Game.els.hudTokens.text(this._coins);
 	}
 
 	cancel() {
@@ -78,7 +90,8 @@ class Hero extends Item {
 		let pos = this.transform.translate,
 			scale = this.scale,
 			rotate = this.transform.rotate,
-			speed = (this.speedTime ? .13 : .08) + Math.min(this.distance / 15000, .04);
+			speed = (this.speedTime ? .13 : .08) + Math.min(this._distance / 15000, .04);
+		
 		this.speed.z += ((this.active ? speed : 0) - this.speed.z) / 20;
 		this.speedTime -= this.speedTime > 0 ? 1 : 0;
 		this.color = this.magnetTime > 100 || this.magnetTime % 20 > 10 ? COLOR.PINK : COLOR.WHITE;
@@ -88,6 +101,7 @@ class Hero extends Item {
 		this.tokenCollider.scale = this.magnetTime ? this.magnet : this.transform.scale;
 		this.stroke += (this.explode - this.stroke) / 25;
 		this.active = pos.y > -10 && this.stroke < 6;
+
 		if (!this.active || this.stroke) {
 			return;
 		}

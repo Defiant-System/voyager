@@ -34,9 +34,6 @@ const defaultSettings = {
 
 const voyager = {
 	init() {
-		// fast references
-		this.content = window.find("content");
-		
 		// get settings, if any
 		this.settings = window.settings.getItem("settings") || defaultSettings;
 		// apply settings
@@ -46,6 +43,7 @@ const voyager = {
 		Bg.init();
 		Game.init();
 
+		// set game state
 		Game.setState("start");
 
 		// DEV-ONLY-START
@@ -88,11 +86,25 @@ const voyager = {
 						if (Game.state === "play") Game.scene.hero.boost();
 						break;
 					case "esc":
-						Game.setState("play");
+						value = Game.state === "play" ? "start" : "play";
+						Game.setState(value);
 						break;
 					case "p":
-						if (Game.state === "play") Game.setState("pause");
+						if (["play", "pause"].includes(Game.state)) {
+							value = Game.state === "play" ? "pause" : "play";
+							Game.setState(value);
+						}
 						break;
+				}
+				break;
+			// gamepad support
+			case "gamepad.down":
+				switch (event.button) {
+					case "b9": Self.dispatch({ type: "window.keydown", char: "p" }); break;
+					case "b12": Self.dispatch({ type: "window.keydown", char: "up" }); break;
+					case "b15": Self.dispatch({ type: "window.keydown", char: "left" }); break;
+					case "b13": Self.dispatch({ type: "window.keydown", char: "down" }); break;
+					case "b14": Self.dispatch({ type: "window.keydown", char: "right" }); break;
 				}
 				break;
 			// custom events
@@ -116,8 +128,9 @@ const voyager = {
 				break;
 			case "toggle-music":
 			case "toggle-fx":
+				break;
 			case "goto-start":
-				console.log(event);
+				Game.setState("start");
 				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");

@@ -29,6 +29,9 @@ let Game = {
 		this.time = Date.now();
 
 		// temp
+		this.scene.update();
+		this.render(this.scene);
+		
 		// let token = new Token(mesh.token, COLOR.YELLOW, [,1,,90,,,.5,.1,.5]);
 		// token.transform.translate.set(0, 1, 0);
 		// token.transform.rotate.y += 180;
@@ -60,6 +63,9 @@ let Game = {
 				});
 				break;
 			case "start":
+				// reset game over view
+				this.els.over.removeClass("congrats");
+
 				camera.position.set(0, -1.1, 5);
 				this.fpsControl.start();
 				break;
@@ -71,12 +77,19 @@ let Game = {
 				break;
 			case "pause":
 				this.fpsControl.stop();
+				requestAnimationFrame(() => {
+					this.render(this.scene);
+					this.render(this.scene, .01);
+				});
 				break;
 			case "over":
 				this.fpsControl.stop();
 
 				let score = +this.els.hudScore.text();
-				if (score > voyager.settings["best-score"]) this.els.over.addClass("congrats");
+				if (score > voyager.settings["best-score"]) {
+					this.els.over.find("h3 span").text(score);
+					this.els.over.addClass("congrats");
+				}
 				voyager.settings["best-score"] = score;
 				break;
 		}
@@ -88,7 +101,7 @@ let Game = {
 		switch (this.state) {
 			case "start":
 				// update hero
-				hero.mesh = mesh.hero[2];
+				hero.mesh = mesh.hero[1];
 				hero.preview();
 				this.render(hero);
 				this.render(hero, .01);

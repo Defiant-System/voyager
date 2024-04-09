@@ -2,6 +2,7 @@
 class Scene extends Item {
 	constructor(hero, factory, map) {
 		super();
+		this.index = 0;
 		this.map = map;
 		this.hero = hero;
 		this.add(this.hero);
@@ -74,6 +75,7 @@ class Scene extends Item {
 			speed = hero.speed.z,
 			fence = 0,
 			enemy = 0;
+		
 		this.platforms.forEach((platform, i) => {
 			if (platform.update(speed)) {
 				fence += platform.fence.active && hero.transform.translate.y > -1 ? 1 : 0;

@@ -31,7 +31,8 @@ content {
 	}
 
 	&[data-show="pause"] {
-		.pause-view {
+		.pause-view,
+		.game-view {
 			opacity: 1;
 			visibility: visible;
 		}
@@ -134,18 +135,19 @@ content {
 		&:before {
 			content: "";
 			position: absolute;
-			top: 17px;
-			left: 17px;
-			right: 17px;
-			bottom: 17px;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
 			z-index: 1;
 			border-radius: 7px;
-			background: rgba(#111,.005);
+			background: rgba(#111,.5);
 			backdrop-filter: blur(5px);
 		}
 
 		h2 {
 			position: relative;
+			top: 67px;
 			z-index: 2;
 			font-size: 61px;
 		}
