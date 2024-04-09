@@ -72,6 +72,8 @@ let Game = {
 				// change camera position
 				camera.rotate.x = -.45;
 				camera.position.set(0, .65, 3);
+				// set game "hero"
+				this.scene.hero.mesh = mesh.hero[this.reel.active];
 				// update game state
 				this.fpsControl.start();
 				break;

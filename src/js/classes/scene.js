@@ -5,14 +5,13 @@ class Scene extends Item {
 
 		this.index = 0;
 		this.map = map;
-		
+
 		// our hero
 		this.hero = new Hero(mesh.hero[0], COLOR.WHITE);
 		this.hero.init();
 		this.hero.transform.rotate.set(10, 22, 30);
-
 		this.add(this.hero);
-		// this.planets = document.getElementsByTagName("LI");
+		
 		this.platforms = [];
 		for (let i = 0; i < 33; i++) {
 			let platform = factory();
@@ -37,17 +36,6 @@ class Scene extends Item {
 				platform.block.active = true;
 			}
 		}
-		// this.planet = this.planets.length - 1;
-		// for (i = 0; i < this.planets.length; i++) {
-		// 	this.planets.item(i).className = "";
-		// }
-	}
-
-	next() {
-		// if (this.planet > 0) {
-		// 	this.planets.item(this.planet--).className = "hide";
-		// 	Event.trigger("planet", this.planet);
-		// }
 	}
 
 	ended() {
@@ -99,7 +87,7 @@ class Scene extends Item {
 			platform.enemy.intersect(hero);
 		});
 		if (rotate && this.map.update()) {
-			this.next();
+			// this.next();
 		}
 		this.updateRow(speed);
 		hero.collide = this.platforms[this.getIndex()].intersect(hero);
