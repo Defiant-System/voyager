@@ -26,7 +26,7 @@ class Reel extends Item {
 			start = this.transform.rotate.y,
 			end = start + (which === "next" ? 90 : -90),
 			duration = 1000;
-		console.log({ time, duration, start, end });
+		// console.log({ time, duration, start, end });
 		this.anim = { time, duration, start, end };
 	}
 
@@ -37,8 +37,8 @@ class Reel extends Item {
 				c = this.anim.end,
 				d = this.anim.duration,
 				value = Math.floor(Math.tween.easeInOut(t, b, c, d));
-			
-			if (value >= this.anim.end) {
+			console.log(value);
+			if (value <= this.anim.end) {
 				value = this.anim.end;
 				delete this.anim;
 			}
