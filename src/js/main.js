@@ -33,7 +33,7 @@ const voyager = {
 		Bg.init();
 		Game.init();
 
-		Game.setState("start");
+		Game.setState("countdown");
 
 		// DEV-ONLY-START
 		Test.init(this);
@@ -75,6 +75,11 @@ const voyager = {
 				}
 				break;
 			// custom events
+			case "toggle-music":
+			case "toggle-fx":
+			case "goto-start":
+				console.log(event);
+				break;
 			case "open-help":
 				karaqu.shell("fs -u '~/help/index.md'");
 				break;

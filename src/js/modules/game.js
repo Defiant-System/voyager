@@ -6,6 +6,7 @@ let Game = {
 			content: window.find("content"),
 			hudScore: window.find(".hud .score span"),
 			hudTokens: window.find(".hud .tokens span"),
+			countdown: window.find(".countdown-view"),
 		};
 
 		// init GL
@@ -48,6 +49,15 @@ let Game = {
 		this.els.content.data({ show: state });
 
 		switch (state) {
+			case "countdown":
+				this.els.content.addClass("countdown");
+				this.els.countdown.cssSequence("start", "transitionend", el => {
+					// reset countdown element
+					el.removeClass("start");
+					// update game state
+					this.setState("play");
+				});
+				break;
 			case "start":
 				camera.position.set(0, -1, 5);
 				this.fpsControl.start();
@@ -55,7 +65,7 @@ let Game = {
 			case "play":
 				// change camera position
 				camera.position.set(0, .65, 3);
-
+				// update game state
 				this.fpsControl.start();
 				break;
 			case "pause":

@@ -30,8 +30,22 @@ content {
 		}
 	}
 
+	&[data-show="pause"] {
+		.pause-view {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
 	&[data-show="over"] {
 		.over-view {
+			opacity: 1;
+			visibility: visible;
+		}
+	}
+
+	&[data-show="countdown"] {
+		.countdown-view {
 			opacity: 1;
 			visibility: visible;
 		}
@@ -46,7 +60,9 @@ content {
 		pointer-events: none;
 	}
 
+	.countdown-view,
 	.start-view,
+	.pause-view,
 	.over-view,
 	.game-view {
 		opacity: 0;
@@ -67,6 +83,72 @@ content {
 			text-shadow: 0 0 5px #aaf,
 						0 0 10px #1e90ff,
 						0 0 15px #0000ff;
+		}
+	}
+
+	.countdown-view {
+		// background: rgba(#f00,.1);
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		font-size: 103px;
+		pointer-events: none;
+		--speed: 750ms;
+		min-height: 1px;
+		transition: min-height calc( var( --speed ) * 3 ) linear;
+
+		span {
+			position: absolute;
+			top: 31%;
+			left: 0;
+			right: 0;
+			text-align: center;
+			opacity: 0;
+			font-weight: 400;
+			font-size: 113px;
+			font-family: Righteous, sans-serif;
+			text-transform: uppercase;
+			color: #f0ffff99;
+			text-shadow: 0 0 5px #aaf,
+						0 0 10px #1e90ff,
+						0 0 15px #0000ff;
+		}
+
+		&.start {
+			min-height: 2px;
+
+			span {
+				animation: countdown var( --speed ) ease-in-out forwards;
+
+				&.tick-3 { animation-delay: calc( var( --speed ) * 0 ); }
+				&.tick-2 { animation-delay: calc( var( --speed ) * 1 ); }
+				&.tick-1 { animation-delay: calc( var( --speed ) * 2 ); }
+			}
+		}
+	}
+
+	.pause-view {
+		padding: 113px 0 0;
+
+		&:before {
+			content: "";
+			position: absolute;
+			top: 17px;
+			left: 17px;
+			right: 17px;
+			bottom: 17px;
+			z-index: 1;
+			border-radius: 7px;
+			background: rgba(#111,.005);
+			backdrop-filter: blur(5px);
+		}
+
+		h2 {
+			position: relative;
+			z-index: 2;
+			font-size: 61px;
 		}
 	}
 
