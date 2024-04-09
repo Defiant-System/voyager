@@ -24,25 +24,46 @@
 @import "./modules/test.js"
 
 
+// default settings
+const defaultSettings = {
+	"music": "off",
+	"sound-fx": "on",
+	"best-score": 0,
+};
+
+
 const voyager = {
 	init() {
 		// fast references
 		this.content = window.find("content");
+		
+		// get settings, if any
+		this.settings = window.settings.getItem("settings") || defaultSettings;
+		// apply settings
+		this.dispatch({ type: "apply-settings" });
 
 		// init objects
 		Bg.init();
 		Game.init();
 
-		Game.setState("countdown");
+		Game.setState("start");
 
 		// DEV-ONLY-START
 		Test.init(this);
 		// DEV-ONLY-END
 	},
 	dispatch(event) {
+		let Self = voyager,
+			name,
+			value;
+		// console.log(event);
 		switch (event.type) {
 			// system events
 			case "window.init":
+				break;
+			case "window.close":
+				// save settings
+				// window.settings.setItem("settings", Self.settings);
 				break;
 			case "window.keydown":
 				// console.log(event);
@@ -75,6 +96,24 @@ const voyager = {
 				}
 				break;
 			// custom events
+			case "apply-settings":
+				// apply settings
+				for (name in Self.settings) {
+					value = Self.settings[name];
+					// update menu
+					window.bluePrint.selectNodes(`//Menu[@check-group="${name}"]`).map(xMenu => {
+						let xArg = xMenu.getAttribute("arg");
+						xMenu.removeAttribute("is-checked");
+						if (xArg == value) {
+							// update menu item
+							xMenu.setAttribute("is-checked", 1);
+							// call dispatch
+							let type = xMenu.getAttribute("click");
+							Self.dispatch({ type, arg: value});
+						}
+					});
+				}
+				break;
 			case "toggle-music":
 			case "toggle-fx":
 			case "goto-start":

@@ -74,7 +74,7 @@ content {
 		bottom: 0;
 		text-align: center;
 
-		h2 {
+		h2, h3 {
 			font-weight: 400;
 			font-size: 70px;
 			font-family: Righteous, sans-serif;
@@ -87,7 +87,6 @@ content {
 	}
 
 	.countdown-view {
-		// background: rgba(#f00,.1);
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -154,9 +153,43 @@ content {
 
 	.over-view {
 		padding: 113px 0 0;
+		bottom: 150px;
+		perspective: 100px;
+
+		&.congrats {
+			h3 {
+				display: block;
+				animation: textBounce 1000ms ease-in-out 4;
+			}
+
+			.pyro {
+				display: block;
+
+				> .before,
+				> .after {
+					animation: 1s bang ease-out 7 backwards,
+								1s gravity ease-in 7 backwards,
+								5s position linear 7 backwards;
+				}
+
+				> .after {
+					animation-delay: 1.25s, 1.25s, 1.25s;
+					animation-duration: 1.25s, 1.25s, 6.25s;
+				}
+			}
+		}
 
 		h2 {
 			font-size: 61px;
+		}
+
+		h3 {
+			display: none;
+			position: relative;
+			top: 43px;
+			transform: translateZ(0);
+			transform-origin: 50% 50%;
+			font-size: 29px;
 		}
 
 		.pyro {
@@ -180,7 +213,7 @@ content {
 	}
 
 	.start-view {
-		padding: 41px 0 0;
+		padding: 31px 0 0;
 		font-family: BebasNeueRegular, sans-serif;
 		font-size: 20px;
 		color: #f0ffff;
@@ -190,7 +223,7 @@ content {
 
 		.controls {
 			position: relative;
-			top: 163px;
+			top: 173px;
 			margin: 0 auto;
 			width: 290px;
 
@@ -285,7 +318,7 @@ content {
 
 		.options {
 			position: relative;
-			top: 197px;
+			top: 211px;
 			margin: 0 auto;
 			width: 290px;
 
@@ -437,13 +470,6 @@ content {
 	  60% { transform: translateZ(-15px); }
 }
 
-@keyframes textColors {
-	100%, 0% { color: #ffb; }
-	20% { color: #fbf; }
-	40% { color: #bff; }
-	60% { color: #bbf; }
-	80% { color: #bfb; }
-}
 
 
 .pyroShadowLoop(@count) when (@count > 0) {

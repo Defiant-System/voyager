@@ -7,6 +7,7 @@ let Game = {
 			hudScore: window.find(".hud .score span"),
 			hudTokens: window.find(".hud .tokens span"),
 			countdown: window.find(".countdown-view"),
+			over: window.find(".over-view"),
 		};
 
 		// init GL
@@ -59,7 +60,7 @@ let Game = {
 				});
 				break;
 			case "start":
-				camera.position.set(0, -1, 5);
+				camera.position.set(0, -1.1, 5);
 				this.fpsControl.start();
 				break;
 			case "play":
@@ -73,6 +74,10 @@ let Game = {
 				break;
 			case "over":
 				this.fpsControl.stop();
+
+				let score = +this.els.hudScore.text();
+				if (score > voyager.settings["best-score"]) this.els.over.addClass("congrats");
+				voyager.settings["best-score"] = score;
 				break;
 		}
 	},

@@ -2,11 +2,14 @@
 	<Menu name="Voyager">
 		<Menu name="About Voyager" shell="win -a"/>
 		<Menu type="divider"/>
+		<Menu name="Music" check-group="music" click="toggle-music"/>
+		<Menu name="Sound Effects" check-group="sound-fx" click="toggle-fx"/>
+		<Menu type="divider"/>
 		<Menu name="Quit Voyager" shell="win -c"/>
 	</Menu>
 	<Menu name="Help">
 		<Menu name="Help" click="open-help"/>
 		<Menu type="divider"/>
-		<Menu name="License"/>
+		<Menu name="License" shell="win -al"/>
 	</Menu>
 </MenuBar>
