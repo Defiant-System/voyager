@@ -47,9 +47,8 @@ let cvs = window.find(".game-view .gl-cvs"),
 		fence: new Mesh(gl, 12, [.4, .5, .5, .4, .5, -.4, .4, -.5], 40),
 		token: new Mesh(gl, 9, [.45, .3, .45, .5, .5, .5, .5, -.5, .45, -.5, .45, -.3], 30),
 		enemy: new Mesh(gl, 6),
-	};
-
-let factory = () => {
+	},
+	factory = () => {
 		let platform = new Platform(),
 			block = new Item(mesh.block, COLOR.BLUE, [,,,,45]),
 			enemy = new Enemy(mesh.enemy, COLOR.CYAN, [,1,,,,,.7,.7,.7]),

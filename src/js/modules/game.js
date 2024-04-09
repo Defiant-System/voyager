@@ -17,7 +17,6 @@ let Game = {
 		gl.viewport(0, 0, width, height);
 
 		// camera & set viewport
-		camera.rotate.x = -.45;
 		camera.aspect = width / height;
 
 		// setup start reel
@@ -65,11 +64,13 @@ let Game = {
 				// reset game over view
 				this.els.over.removeClass("congrats");
 
-				camera.position.set(0, -1.1, 5);
+				camera.rotate.x = -.215;
+				camera.position.set(0, -1.5, 7);
 				this.fpsControl.start();
 				break;
 			case "play":
 				// change camera position
+				camera.rotate.x = -.45;
 				camera.position.set(0, .65, 3);
 				// update game state
 				this.fpsControl.start();

@@ -129,7 +129,7 @@ const voyager = {
 				break;
 			case "reel-prev":
 			case "reel-next":
-				console.log(event);
+				Game.reel.go(event.type.split("-")[1]);
 				break;
 			case "toggle-music":
 			case "toggle-fx":

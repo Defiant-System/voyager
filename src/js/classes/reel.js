@@ -4,10 +4,10 @@ class Reel extends Item {
 		super();
 
 		let pos = [
-			[0, 0, 0],
-			[-2.25, -.65, -3],
-			[2.25, -.65, -3],
-			[0, -1, -5],
+			[0, 0, 2],
+			[-2, 0, 0],
+			[2, 0, 0],
+			[0, 0, -2],
 		];
 
 		mesh.hero.map((m, i) => {
@@ -16,16 +16,18 @@ class Reel extends Item {
 			hero.init();
 			hero.transform.translate.set(...pos[i]);
 			hero.transform.rotate.set(10, 22, 30);
-
+			// add as child to reel
 			this.add(hero);
 		});
+	}
 
+	go(which) {
+		this.transform.rotate.y = 15;
 	}
 
 	update() {
-		// this.hero.update();
 		this.childs[0].preview();
-		// this.render(this.hero);
-		// this.render(this.hero, .01);
+
+		// this.childs.map(e => e.preview());
 	}
 }
