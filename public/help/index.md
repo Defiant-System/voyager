@@ -6,3 +6,6 @@
 
 ### How to
 
+---
+This game is based on Spacecraft, written by [Csaba Csecskedi](https://github.com/tricsi).<br/>
+Play the original game [here](https://tricsi.github.io/spacecraft/dist/).
