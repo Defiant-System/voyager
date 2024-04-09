@@ -25,11 +25,11 @@ class Enemy extends Item {
 		if (this.active && !this.explode && !hero.explode && this.collider.intersect(hero.collider)) {
 			if (hero.speedTime) {
 				this.explode = 7;
-				// Event.trigger("hit", hero);
+				Sfx.play("hit");
 				return;
 			}
 			hero.explode = 7;
-			// Event.trigger("exp", hero);
+			Sfx.play("exp");
 		}
 	}
 }

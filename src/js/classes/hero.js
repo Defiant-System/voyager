@@ -43,42 +43,42 @@ class Hero extends Item {
 	left() {
 		if (this.x >= 0) {
 			this.x--;
-			// Event.trigger("move", this);
+			Sfx.play("move");
 		}
 	}
 
 	right() {
 		if (this.x <= 0) {
 			this.x++;
-			// Event.trigger("move", this);
+			Sfx.play("move");
 		}
 	}
 
 	jump() {
 		if (this.collide) {
 			this.acc = .03;
-			// Event.trigger("jump", this);
+			Sfx.play("jump");
 		}
 	}
 
 	boost() {
 		this.speedTime = 75;
-		// Event.trigger("move", this);
+		Sfx.play("move");
 	}
 
 	magnetize() {
 		this.magnetTime = 450;
-		// Event.trigger("power", this);
+		Sfx.play("power");
 	}
 
 	dash() {
 		this.scaleTime = 40;
-		// Event.trigger("move", this);
+		Sfx.play("move");
 	}
 
 	coin() {
-		// Event.trigger("coin", this);
 		this._coins++;
+		Sfx.play("coin");
 		Game.els.hudTokens.text(this._coins);
 	}
 

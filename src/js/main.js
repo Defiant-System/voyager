@@ -20,6 +20,7 @@
 // @imp1ort "./classes/event.js"
 
 @import "./modules/variables.js"
+@import "./modules/sfx.js"
 @import "./modules/bg.js"
 @import "./modules/game.js"
 @import "./modules/test.js"
@@ -43,6 +44,7 @@ const voyager = {
 		// init objects
 		Bg.init();
 		Game.init();
+		Sfx.init();
 
 		// set game state
 		Game.setState("start");
@@ -78,10 +80,12 @@ const voyager = {
 					case "a":
 					case "left":
 						if (Game.state === "play") Game.scene.hero.left();
+						if (Game.state === "start") Game.reel.go("prev");
 						break;
 					case "d":
 					case "right":
 						if (Game.state === "play") Game.scene.hero.right();
+						if (Game.state === "start") Game.reel.go("next");
 						break;
 					case "space":
 						if (Game.state === "play") Game.scene.hero.boost();

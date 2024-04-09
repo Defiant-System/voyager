@@ -35,7 +35,6 @@ let Game = {
 		// token.transform.rotate.y += 180;
 		// this.render(token);
 
-
 		// FPS controller
 		let that = this;
 		this.fpsControl = karaqu.FpsControl({

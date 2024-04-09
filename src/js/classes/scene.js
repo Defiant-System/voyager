@@ -98,10 +98,10 @@ class Scene extends Item {
 		});
 		hero.distance += speed;
 		if (fence > 0) {
-			// Event.trigger("fence", fence);
+			Sfx.play("fence");
 		}
 		if (enemy > 0) {
-			// Event.trigger("enemy", enemy);
+			Sfx.play("enemy");
 		}
 	}
 }
