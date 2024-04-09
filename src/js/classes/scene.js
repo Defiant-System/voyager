@@ -1,10 +1,16 @@
 
 class Scene extends Item {
-	constructor(hero, factory, map) {
+	constructor(factory, map) {
 		super();
+
 		this.index = 0;
 		this.map = map;
-		this.hero = hero;
+		
+		// our hero
+		this.hero = new Hero(mesh.hero[0], COLOR.WHITE);
+		this.hero.init();
+		this.hero.transform.rotate.set(10, 22, 30);
+
 		this.add(this.hero);
 		// this.planets = document.getElementsByTagName("LI");
 		this.platforms = [];
@@ -75,7 +81,7 @@ class Scene extends Item {
 			speed = hero.speed.z,
 			fence = 0,
 			enemy = 0;
-		
+
 		this.platforms.forEach((platform, i) => {
 			if (platform.update(speed)) {
 				fence += platform.fence.active && hero.transform.translate.y > -1 ? 1 : 0;

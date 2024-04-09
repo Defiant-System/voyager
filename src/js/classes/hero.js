@@ -1,12 +1,12 @@
 
 class Hero extends Item {
-	init(reset=true) {
+	init(reset=true, color) {
 		const transform = this.transform;
 
 		transform.translate.set(0, 0, 0);
 		transform.rotate.set(0, 0, 90);
 		transform.scale.set(1, 1, 1);
-		this.color = COLOR.WHITE;
+		// this.color = COLOR.WHITE;
 		this.active = true;
 		this.transform = transform;
 		this.collider = new Sphere(transform);

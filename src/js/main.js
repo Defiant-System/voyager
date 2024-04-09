@@ -10,6 +10,7 @@
 
 @import "./classes/token.js"
 @import "./classes/scene.js"
+@import "./classes/reel.js"
 // @impor1t "./classes/task.js"
 // @impo1rt "./classes/menu.js"
 @import "./classes/platform.js"
@@ -126,8 +127,13 @@ const voyager = {
 					});
 				}
 				break;
+			case "reel-prev":
+			case "reel-next":
+				console.log(event);
+				break;
 			case "toggle-music":
 			case "toggle-fx":
+				console.log(event);
 				break;
 			case "goto-start":
 				Game.setState("start");

@@ -223,6 +223,31 @@ content {
 					0 0 7px #1e90ff,
 					0 0 11px #0000ff;
 
+		.reel-arrows {
+			position: absolute;
+			top: 113px;
+			left: 0;
+			right: 0;
+			z-index: 2;
+
+			.left,
+			.right {
+				// background: rgba(#fff,.1);
+				position: absolute;
+				top: 29px;
+				left: 73px;
+				width: 71px;
+				height: 71px;
+				border-radius: 50%;
+				cursor: pointer;
+			}
+
+			.right {
+				left: auto;
+				right: 73px;
+			}
+		}
+
 		.controls {
 			position: relative;
 			top: 173px;

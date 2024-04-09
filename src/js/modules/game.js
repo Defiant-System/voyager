@@ -20,12 +20,11 @@ let Game = {
 		camera.rotate.x = -.45;
 		camera.aspect = width / height;
 
-		// our hero
-		hero.init();
-		hero.transform.rotate.set(10, 22, 30);
+		// setup start reel
+		this.reel = new Reel();
 
 		// setup scene
-		this.scene = new Scene(hero, factory, map);
+		this.scene = new Scene(factory, map);
 		this.time = Date.now();
 
 		// temp
@@ -100,11 +99,10 @@ let Game = {
 
 		switch (this.state) {
 			case "start":
-				// update hero
-				hero.mesh = mesh.hero[1];
-				hero.preview();
-				this.render(hero);
-				this.render(hero, .01);
+				// update reel
+				this.reel.update();
+				this.render(this.reel);
+				this.render(this.reel, .01);
 				break;
 			case "play":
 				let now = Date.now();

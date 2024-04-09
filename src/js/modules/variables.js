@@ -3,6 +3,7 @@ const RAD_SCALE = Math.PI / 180;
 
 const COLOR = {
 		WHITE:  [1, 1, 1, 10],
+		GRAY:  [.5, .5, .5, 10],
 		PINK: [1, .3, 1, 30],
 		BLUE: [.3, .3, 1, 30],
 		YELLOW: [1, 1, .3, 30],
@@ -46,8 +47,7 @@ let cvs = window.find(".game-view .gl-cvs"),
 		fence: new Mesh(gl, 12, [.4, .5, .5, .4, .5, -.4, .4, -.5], 40),
 		token: new Mesh(gl, 9, [.45, .3, .45, .5, .5, .5, .5, -.5, .45, -.5, .45, -.3], 30),
 		enemy: new Mesh(gl, 6),
-	},
-	hero = new Hero(mesh.hero[0], COLOR.WHITE);
+	};
 
 let factory = () => {
 		let platform = new Platform(),
