@@ -40,7 +40,7 @@ let Game = {
 		let that = this;
 		this.fpsControl = karaqu.FpsControl({
 			fps: 30,
-			// autoplay: true,
+			autoplay: true,
 			callback() { that.update(); }
 		});
 	},
@@ -63,10 +63,13 @@ let Game = {
 			case "start":
 				// reset game over view
 				this.els.over.removeClass("congrats");
-
+				// reset camera
 				camera.rotate.x = -.215;
 				camera.position.set(0, -1.5, 7);
-				this.fpsControl.start();
+				// reset scene
+				this.scene.init();
+
+				// this.fpsControl.start();
 				break;
 			case "play":
 				// change camera position
@@ -75,7 +78,7 @@ let Game = {
 				// set game "hero"
 				this.scene.hero.mesh = mesh.hero[this.reel.active];
 				// update game state
-				this.fpsControl.start();
+				if (this.fpsControl._stopped) this.fpsControl.start();
 				break;
 			case "pause":
 				this.fpsControl.stop();
@@ -85,7 +88,7 @@ let Game = {
 				});
 				break;
 			case "over":
-				this.fpsControl.stop();
+				// this.fpsControl.stop();
 
 				let score = +this.els.hudScore.text();
 				if (score > voyager.settings["best-score"]) {
