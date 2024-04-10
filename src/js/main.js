@@ -11,13 +11,10 @@
 @import "./classes/token.js"
 @import "./classes/scene.js"
 @import "./classes/reel.js"
-// @impor1t "./classes/task.js"
-// @impo1rt "./classes/menu.js"
 @import "./classes/platform.js"
 @import "./classes/hero.js"
 @import "./classes/map.js"
 @import "./classes/enemy.js"
-// @imp1ort "./classes/event.js"
 
 @import "./modules/variables.js"
 @import "./modules/sfx.js"
@@ -64,7 +61,7 @@ const voyager = {
 				break;
 			case "window.close":
 				// save settings
-				// window.settings.setItem("settings", Self.settings);
+				window.settings.setItem("settings", Self.settings);
 				break;
 			case "window.keydown":
 				// console.log(event);
