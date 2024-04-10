@@ -28,9 +28,6 @@ class Reel extends Item {
 		// exit if animating
 		if (this.anim) return;
 
-		if (which === "next") Sfx.play("hit");
-		else Sfx.play("coin");
-
 		let time = Date.now(),
 			duration = 1000,
 			start = this.transform.rotate.y,
