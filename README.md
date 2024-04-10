@@ -3,4 +3,5 @@
 
 ## TODO
 - [ ] Show "Best score" on start view
-- 
+- [ ] Toggle Sound Fx on start view
+
