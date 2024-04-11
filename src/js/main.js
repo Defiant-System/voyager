@@ -139,6 +139,7 @@ const voyager = {
 					window.midi.play({
 						path: "/cdn/midi/music/Johannes%20Brahms%20-%20Hungarian%20Dance%20No5.mid",
 						reverb: "cathedral",
+						volume: .35,
 						loop: true,
 					});
 				}
