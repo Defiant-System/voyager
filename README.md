@@ -4,4 +4,5 @@
 ## TODO
 - [ ] Show "Best score" on start view
 - [ ] Toggle Sound Fx on start view
+- [ ] Include coin count in score
 
