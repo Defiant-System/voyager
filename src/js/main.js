@@ -88,7 +88,7 @@ const voyager = {
 						if (Game.state === "play") Game.scene.hero.boost();
 						break;
 					case "esc":
-						value = ["play", "over"].includes(Game.state) ? "start" : "play";
+						value = ["play", "over"].includes(Game.state) ? "start" : "countdown";
 						Game.setState(value);
 						break;
 					case "p":
