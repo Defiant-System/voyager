@@ -126,10 +126,12 @@ let Sfx = {
 		return this;
 	},
 	vol(v) {
-		let mixer = this.mixer("music"),
-			time = mixer.context.currentTime;
 		this.volume = v;
-		mixer.gain.setValueAtTime(this.volume, time);
+		let mixer = this.mixer("music");
+		if (mixer) {
+			let time = mixer.context.currentTime;
+			mixer.gain.setValueAtTime(this.volume, time);
+		}
 	},
 	async sound(id, sound, freq, time) {
 		let ctx = new OfflineAudioContext(1, this.bitrate * time, this.bitrate);
@@ -171,6 +173,7 @@ let Sfx = {
 		await ctx.startRendering();
 	},
 	mixer(id) {
+		if (!this.gains) return;
 		if (!(id in this.gains)) {
 			this.gains[id] = this.out.createGain();
 			this.gains[id].connect(this.out.destination);
@@ -178,6 +181,7 @@ let Sfx = {
 		return this.gains[id];
 	},
 	play(id, loop, mixerId="master") {
+		if (this.volume <= 0) return;
 		if (id in this.buffers) {
 			// console.log(id, this.buffers[id]);
 			let src = this.out.createBufferSource();

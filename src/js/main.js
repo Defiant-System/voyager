@@ -52,8 +52,10 @@ const voyager = {
 	},
 	dispatch(event) {
 		let Self = voyager,
+			xMenu,
 			name,
-			value;
+			value,
+			el;
 		// console.log(event);
 		switch (event.type) {
 			// system events
@@ -110,20 +112,50 @@ const voyager = {
 				}
 				break;
 			// custom events
+			case "before-menu:menubar":
+				xMenu = window.bluePrint.selectSingleNode(`//Menu[@check-group="music"]`);
+				if (Self.settings["music"] === "on") xMenu.setAttribute("is-checked", 1);
+				else xMenu.removeAttribute("is-checked");
+
+				xMenu = window.bluePrint.selectSingleNode(`//Menu[@check-group="sound-fx"]`);
+				if (Self.settings["sound-fx"] === "on") xMenu.setAttribute("is-checked", 1);
+				else xMenu.removeAttribute("is-checked");
+				break;
 			case "apply-settings":
 				// apply settings
 				for (name in Self.settings) {
 					value = Self.settings[name];
 					// update menu
 					window.bluePrint.selectNodes(`//Menu[@check-group="${name}"]`).map(xMenu => {
-						let xArg = xMenu.getAttribute("arg");
-						xMenu.removeAttribute("is-checked");
-						if (xArg == value) {
-							// update menu item
-							xMenu.setAttribute("is-checked", 1);
-							// call dispatch
-							let type = xMenu.getAttribute("click");
-							Self.dispatch({ type, arg: value});
+						switch (name) {
+							case "music":
+								if (value === "on") {
+									xMenu.setAttribute("is-checked", 1);
+									Self.dispatch({ type: "toggle-music", checked: 1 });
+								} else {
+									xMenu.removeAttribute("is-checked");
+									Self.dispatch({ type: "toggle-music", checked: -1 });
+								}
+								break;
+							case "sound-fx":
+								if (value === "on") {
+									xMenu.setAttribute("is-checked", 1);
+									Self.dispatch({ type: "toggle-fx", checked: 1 });
+								} else {
+									xMenu.removeAttribute("is-checked");
+									Self.dispatch({ type: "toggle-fx", checked: -1 });
+								}
+								break;
+							default:
+								let xArg = xMenu.getAttribute("arg");
+								xMenu.removeAttribute("is-checked");
+								if (xArg == value) {
+									// update menu item
+									xMenu.setAttribute("is-checked", 1);
+									// call dispatch
+									let type = xMenu.getAttribute("click");
+									Self.dispatch({ type, arg: value});
+								}
 						}
 					});
 				}
@@ -133,8 +165,13 @@ const voyager = {
 				Game.reel.go(event.type.split("-")[1]);
 				break;
 			case "toggle-music":
-				if (window.midi.playing) {
-					window.midi.pause();
+				value = Self.settings["music"] === "on" ? "off" : "on";
+				if (event.checked) value = event.checked > 0 ? "on" : "off";
+				// update settings
+				Self.settings["music"] = value;
+
+				if (value === "off") {
+					if (window.midi.playing) window.midi.pause();
 				} else {
 					window.midi.play({
 						path: "/cdn/midi/music/Johannes%20Brahms%20-%20Hungarian%20Dance%20No5.mid",
@@ -143,9 +180,27 @@ const voyager = {
 						loop: true,
 					});
 				}
+
+				if (!event.target) {
+					el = window.find(`.start-view input[id="music"]`);
+					if (value === "on") el.attr({ checked: true });
+					else el.removeAttr("checked");
+				}
 				break;
 			case "toggle-fx":
-				console.log(event);
+				value = Self.settings["sound-fx"] === "on" ? "off" : "on";
+				if (event.checked) value = event.checked > 0 ? "on" : "off";
+				// update settings
+				Self.settings["sound-fx"] = value;
+
+				if (value === "off") Sfx.vol(0);
+				else Sfx.vol(0.1);
+
+				if (!event.target) {
+					el = window.find(`.start-view input[id="sound-fx"]`);
+					if (value === "on") el.attr({ checked: true });
+					else el.removeAttr("checked");
+				}
 				break;
 			case "goto-start":
 				Game.setState("start");
