@@ -182,6 +182,7 @@ let Sfx = {
 	},
 	play(id, loop, mixerId="master") {
 		if (this.volume <= 0) return;
+
 		if (id in this.buffers) {
 			// console.log(id, this.buffers[id]);
 			let src = this.out.createBufferSource();

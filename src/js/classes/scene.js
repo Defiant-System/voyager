@@ -8,7 +8,7 @@ class Scene extends Item {
 
 		// our hero
 		this.hero = new Hero(mesh.hero[0], COLOR.WHITE);
-		this.hero.init();
+		this.hero.init(true);
 		this.hero.transform.rotate.set(10, 22, 30);
 		this.add(this.hero);
 		

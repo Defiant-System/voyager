@@ -24,7 +24,7 @@ class Hero extends Item {
 		this.stroke = 0;
 
 		this._coins = 0;
-		Game.els.hudTokens.text(this._coins);
+		Game.els.hudTokens.text(this._coins.toString());
 
 		if (reset) {
 			this._distance = 0;

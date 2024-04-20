@@ -65,6 +65,7 @@ let Game = {
 				// reset camera
 				camera.rotate.x = -.215;
 				camera.position.set(0, -1.5, 7);
+
 				// reset scene
 				this.scene.init();
 

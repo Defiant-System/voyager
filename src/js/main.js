@@ -33,15 +33,15 @@ const defaultSettings = {
 
 const voyager = {
 	init() {
-		// get settings, if any
-		this.settings = window.settings.getItem("settings") || defaultSettings;
-		// apply settings
-		this.dispatch({ type: "apply-settings" });
-
 		// init objects
 		Bg.init();
 		Game.init();
 		Sfx.init();
+		
+		// get settings, if any
+		this.settings = window.settings.getItem("settings") || defaultSettings;
+		// apply settings
+		this.dispatch({ type: "apply-settings" });
 
 		// set game state
 		Game.setState("start");
