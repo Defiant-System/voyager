@@ -17,7 +17,7 @@ let Anim = {
 				Self.width = Self.cvs.width;
 				Self.height = Self.cvs.height;
 				Self.focalX = Self.width >> 1;
-				Self.focalY = Self.height * .2;
+				Self.focalY = Self.height * .35;
 				Self.dispatch({ type: "create-scene" });
 				break;
 			case "pause":
