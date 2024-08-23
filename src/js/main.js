@@ -62,6 +62,8 @@ const voyager = {
 			case "window.init":
 				break;
 			case "window.close":
+				// pause background worker
+				Bg.dispatch({ type: "dispose", kill: true });
 				// save settings
 				window.settings.setItem("settings", Self.settings);
 				break;
