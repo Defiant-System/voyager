@@ -113,6 +113,11 @@ const voyager = {
 					case "b14": Self.dispatch({ type: "window.keydown", char: "right" }); break;
 				}
 				break;
+			// swipe support
+			case "swipe.up":    Self.gameManager.move(0); break;
+			case "swipe.down":  Self.gameManager.move(2); break;
+			case "swipe.left":  Self.gameManager.move(3); break;
+			case "swipe.right": Self.gameManager.move(1); break;
 			// custom events
 			case "before-menu:menubar":
 				xMenu = window.bluePrint.selectSingleNode(`//Menu[@check-group="music"]`);
